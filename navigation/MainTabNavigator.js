@@ -4,6 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import NewsScreen from '../screens/NewsScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -12,44 +13,74 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const NewsStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    News: NewsScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+NewsStack.navigationOptions = {
+  tabBarLabel: 'Notícias',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-paper`
+          : 'md-paper'
       }
     />
   ),
 };
 
-HomeStack.path = '';
+NewsStack.path = '';
 
-const LinksStack = createStackNavigator(
+const RainfallStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Rainfall: LinksScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+RainfallStack.navigationOptions = {
+  tabBarLabel: 'Chuvas',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-rainy' : 'md-rainy'} />
   ),
 };
 
-LinksStack.path = '';
+RainfallStack.path = '';
+const MapsStack = createStackNavigator(
+  {
+    Maps: LinksScreen,
+  },
+  config
+);
+
+MapsStack.navigationOptions = {
+  tabBarLabel: 'Mapa',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'} />
+  ),
+};
+
+MapsStack.path = '';
+const NotificationStack = createStackNavigator(
+  {
+    Notification: LinksScreen,
+  },
+  config
+);
+
+NotificationStack.navigationOptions = {
+  tabBarLabel: 'Notification',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-notifications' : 'md-notifications'} />
+  ),
+};
+
+NotificationStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -68,8 +99,10 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  NewsStack,
+  RainfallStack,
+  MapsStack,
+  NotificationStack,
   SettingsStack,
 });
 
