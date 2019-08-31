@@ -1,48 +1,71 @@
-import React, { Component } from 'react';
-import { ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
-import { StyleSheet, View } from 'react-native';
-export default class ListItemNews extends Component {
-  render() {
-    return (
-      <>
-        <ListItem thumbnail style={styles.item}>
-          <Left style={styles.left}>
-            <Thumbnail large square source={require('../assets/images/rain.jpg')} style={styles.thumbnail} />
-          </Left>
-          <Body style={styles.body}>
-            <View>
-              <Text>Olar</Text>  
+import React, { useEffect} from 'react';
+import { Text, } from 'native-base';
+import { StyleSheet, View, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+const ListItemNews = ({ item }) => {
+  useEffect(() => {
+    console.log('12321321');
+  }, []);
+  return (
+    <>
+      {/* {console.log(item)} */}
+      <View style={styles.container}>
+        {/* <View style={styles.containerThumb}>
+          <Image style={styles.thumb} source={{ uri: image }} />
+        </View>
+        <View style={styles.containerInfo}>
+          <View style={styles.containerTitle}>
+            <Text>{title}</Text>
+            <View style={styles.containerDate}>
+              <Text style={styles.date}>{date}</Text>
+              <Ionicons name='ios-arrow-forward' size={16} />
             </View>
-            <Text>Lorem ipsum dolor</Text>
-            <Text note numberOfLines={2}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at nibh ac ex viverra gravida. Curabitur dictum efficitur nibh, quis fringilla neque consequat vulputate.</Text>
-          </Body>
-          {/* <Right>
-            <Button transparent>
-              <Text>View</Text>
-            </Button>
-          </Right> */}
-        </ListItem>
-      </>
-    );
-  }
-}
+          </View>
+          <Text note numberOfLines={2}>{description}</Text>
+        </View> */}
+      </View>
+    </>
+  );
 
+}
+export default ListItemNews;
 const styles = StyleSheet.create({
-  item: {
-    height: 100,
-    margin: 0,
-    padding: 0, 
+  container: {
+    flexDirection: 'row',
+    margin: 10,
+    paddingBottom: 5,
+    borderBottomColor: '#e4e6e8',
+    borderBottomWidth: 1,
+    // alignItems: 'center',
   },
-  left: {
-    width:100,
+  containerThumb: {
+    flex: 1,
+    backgroundColor: "red",
+    justifyContent: 'center'
   },
-  body: {
-    backgroundColor: 'red', 
-    padding:0
-  },
-  thumbnail: {
+  thumb: {
     width: 90,
-    marginLeft: 5,
     height: 90,
+    justifyContent: 'center'
+    // margin:6,
+  },
+  containerInfo: {
+    flex: 3,
+    paddingLeft: 10,
+  },
+  containerTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+    alignItems: 'center',
+  },
+  containerDate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  date: {
+    fontSize: 10,
+    marginRight: 7
   }
+
 });
