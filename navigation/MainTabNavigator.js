@@ -3,11 +3,11 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/News/NewsScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import NewsDetailScreen from '../screens/News/NewsDetailScreen';
+import MapsScreen from '../screens/MapsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -55,7 +55,7 @@ RainfallStack.navigationOptions = {
 RainfallStack.path = '';
 const MapsStack = createStackNavigator(
   {
-    Maps: LinksScreen,
+    Maps: MapsScreen,
   },
   config
 );
