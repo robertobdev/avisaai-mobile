@@ -2,8 +2,16 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import  Parse from 'parse/react-native';
+
+Parse.setAsyncStorage(AsyncStorage);
+Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
+Parse.initialize(
+  '', // This is your Application ID
+  '' // This is your Javascript key
+);
 
 import AppNavigator from './navigation/AppNavigator';
 
