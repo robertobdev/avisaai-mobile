@@ -38,21 +38,6 @@ NewsStack.navigationOptions = {
 
 NewsStack.path = '';
 
-const RainfallStack = createStackNavigator(
-  {
-    Rainfall: LinksScreen,
-  },
-  config
-);
-
-RainfallStack.navigationOptions = {
-  tabBarLabel: 'Chuvas',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-rainy' : 'md-rainy'} />
-  ),
-};
-
-RainfallStack.path = '';
 const MapsStack = createStackNavigator(
   {
     Maps: MapsScreen,
@@ -76,7 +61,7 @@ const NotificationStack = createStackNavigator(
 );
 
 NotificationStack.navigationOptions = {
-  tabBarLabel: 'Notification',
+  tabBarLabel: 'Notificações',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-notifications' : 'md-notifications'} />
   ),
@@ -92,7 +77,7 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Configurações',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
@@ -102,7 +87,6 @@ SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   NewsStack,
-  RainfallStack,
   MapsStack,
   NotificationStack,
   SettingsStack,
