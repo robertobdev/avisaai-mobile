@@ -17,7 +17,7 @@ const ListItemNews = ({ item }) => {
         </View>
         <View style={styles.containerInfo}>
           <View style={styles.containerTitle}>
-            <Text>{title}</Text>
+            <Text note numberOfLines={2} style={styles.title}>{title}</Text>
             <View style={styles.containerDate}>
               <Text style={styles.date}>{date}</Text>
               <Ionicons name='ios-arrow-forward' size={16} />
@@ -38,18 +38,15 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     borderBottomColor: '#e4e6e8',
     borderBottomWidth: 1,
-    // alignItems: 'center',
   },
   containerThumb: {
     flex: 1,
-    backgroundColor: "red",
     justifyContent: 'center'
   },
   thumb: {
     width: 90,
     height: 90,
     justifyContent: 'center'
-    // margin:6,
   },
   containerInfo: {
     flex: 3,
@@ -68,6 +65,9 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 10,
     marginRight: 7
+  },
+  title: {
+    color: 'black',
+    width: 180,
   }
-
 });
