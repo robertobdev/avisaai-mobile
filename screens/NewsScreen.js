@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import ListItemNews from '../components/ListItemNews';
-import { Parse } from 'parse/react-native';
+import Parse from 'parse/react-native';
 
 export default function NewsScreen() {
   const [news, setNews] = useState([]);
@@ -15,9 +15,7 @@ export default function NewsScreen() {
     const News = Parse.Object.extend('News');
     const query = new Parse.Query(News);
     query.find().then((results) => {
-      let r = [...results];
-      console.log(Object.keys(r[0]));
-      // setNews(results);
+      setNews(results);
       console.log('Achou news');
     }, (error) => {
       console.error('Error while fetching TypeMakers', error);
@@ -29,29 +27,15 @@ export default function NewsScreen() {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
         {news.map((newsItem) => {
-          { console.log(newsItem.description)}
-          return <ListItemNews key={newsItem.objectId} item={newsItem}></ListItemNews>;
+          return <ListItemNews key={newsItem.id} item={newsItem.attributes}></ListItemNews>;
         })}
       </ScrollView>
-
-      {/* <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View> */}
     </View>
   );
 }
 
 NewsScreen.navigationOptions = {
-  header: null,
+  title: 'Notícias',
 };
 
 const styles = StyleSheet.create({

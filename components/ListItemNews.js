@@ -1,17 +1,19 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, } from 'native-base';
 import { StyleSheet, View, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 const ListItemNews = ({ item }) => {
+  const { title, description, createdAt, image } = item;
+  const [date, setDate] = useState('');
   useEffect(() => {
-    console.log('12321321');
+    const dateFormat = new Date(createdAt.toString());
+    setDate(dateFormat.toLocaleDateString('pt-BR'));
   }, []);
   return (
     <>
-      {/* {console.log(item)} */}
       <View style={styles.container}>
-        {/* <View style={styles.containerThumb}>
-          <Image style={styles.thumb} source={{ uri: image }} />
+        <View style={styles.containerThumb}>
+          <Image style={styles.thumb} source={{ uri: image.url() }} />
         </View>
         <View style={styles.containerInfo}>
           <View style={styles.containerTitle}>
@@ -22,7 +24,7 @@ const ListItemNews = ({ item }) => {
             </View>
           </View>
           <Text note numberOfLines={2}>{description}</Text>
-        </View> */}
+        </View>
       </View>
     </>
   );
