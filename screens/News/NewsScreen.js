@@ -4,31 +4,47 @@ import {
   ScrollView,
   StyleSheet,
   TouchableHighlight,
-  View,
+  View, RefreshControl
 } from 'react-native';
 import ListItemNews from '../../components/ListItemNews';
 import Parse from 'parse/react-native';
 
 const NewsScreen = (props) => {
   const [news, setNews] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
+    getNews();
+  }, []);
+
+  const getNews = () => {
+    setRefreshing(true);
     const News = Parse.Object.extend('News');
     const query = new Parse.Query(News);
     query.find().then((results) => {
       setNews(results);
-      console.log('Achou news');
+      setRefreshing(false);
     }, (error) => {
-      console.error('Error while fetching TypeMakers', error);
+        console.error('Error while fetching TypeMakers', error);
+        setRefreshing(false);
     });
-  }, []);
+  }
 
   const handlePress = (detail) => {
     props.navigation.push('Detail', { detail });
   }
+  const onRefresh = () => {
+    getNews();
+  }
   return (
     <View style={styles.container}>
       <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => onRefresh()}
+          />
+        }
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
         {news.map((newsItem) => {
@@ -51,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 20,
   },
- 
+
 });
