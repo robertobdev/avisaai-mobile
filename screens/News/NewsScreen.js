@@ -25,8 +25,8 @@ const NewsScreen = (props) => {
       setNews(results);
       setRefreshing(false);
     }, (error) => {
-        console.error('Error while fetching TypeMakers', error);
-        setRefreshing(false);
+      console.error('Error while fetching TypeMakers', error);
+      setRefreshing(false);
     });
   }
 
