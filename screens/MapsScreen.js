@@ -6,7 +6,9 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { Parse } from 'parse/react-native';
 import _ from 'lodash';
-const MapsScreen = () => {
+import { Button, Icon } from 'native-base';
+
+const MapsScreen = ({ navigation }) => {
   const Markers = Parse.Object.extend('Markers');
 
   const [location, setLocation] = useState({
@@ -62,7 +64,10 @@ const MapsScreen = () => {
 
   useEffect(() => {
     getMarkers();
-    
+    navigation.setParams({
+      'handleRefreshe': handleRefresh
+    });
+
     if (Platform.OS === 'android' && !Constants.isDevice) {
       setError({
         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
@@ -71,6 +76,16 @@ const MapsScreen = () => {
       this._getLocationAsync();
     }
   }, []);
+  const handleRefresh = () => {
+    getMarkers();
+  }
+
+  MapsScreen.navigationOptions = {
+    title: 'Mapa Interativo',
+    headerRight: <Button iconRight light onPress={() => handleRefresh()}>
+      <Icon name='ios-refresh' />
+    </Button>
+  };
 
   return (
     <MapView region={location} style={styles.container}>
@@ -99,9 +114,7 @@ const MapsScreen = () => {
 
 export default MapsScreen;
 
-MapsScreen.navigationOptions = {
-  title: 'Mapa Interativo',
-};
+
 const color = {
   rain: 'rgba(109, 193, 255, 0.4)',
   overflow: 'rgba(34, 75, 139, 0.4)',
