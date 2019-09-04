@@ -5,26 +5,25 @@ import {
   StyleSheet,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity, Alert
 } from 'react-native';
-
-const SignIn = () => {
+import Parse from 'parse/react-native';
+import { AsyncStorage } from 'react-native';
+const SignInScreen = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const handleLogin = () => {
-    console.log('aqui', username, password);
-    // const { username, password } = props.form.getFieldsValue(["username", "password"]);
-    // Parse.User.logIn(username, password).then((user) => {
-    //   localStorage.setItem("app_session_token", user.getSessionToken());
-    //   console.log(props);
-    //   props.history.push("/panel");
-    // }).catch(error => {
-    //   console.log(error);
-    //   setError(true);
-    //   setTimeout(() => {
-    //     setError(false);
-    //   }, 4000);
-    // });
+    Parse.User.logIn(username, password).then(async (user) => {
+      await AsyncStorage.setItem('user', user.attributes.toString());
+      props.navigation.navigate('App');
+    }).catch(error => {
+      Alert.alert('Aviso', 'Usuário o senha inválidos.');
+      console.log(error);
+    });
+  }
+
+  const handleCreateAccount = () => {
+    props.navigation.navigate('SignUp');    
   }
 
   return (
@@ -54,7 +53,7 @@ const SignIn = () => {
       <View style={styles.normalContainer}>
         <Text style={styles.normalText}>Você tem uma conta?</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => handleCreateAccount()}>
         <View style={styles.createAccount}>
           <Text style={styles.createText}>Criar uma nova conta</Text>
         </View>
@@ -64,7 +63,11 @@ const SignIn = () => {
 
 }
 
-export default SignIn;
+export default SignInScreen;
+
+SignInScreen.navigationOptions = {
+  header: null,
+};
 
 const styles = StyleSheet.create({
   btn: {

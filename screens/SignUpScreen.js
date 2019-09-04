@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity, Alert
 } from 'react-native';
+import Parse from 'parse/react-native';
+import { AsyncStorage } from 'react-native';
 
-const SignUp = () => {
+const SignUpScreen = (props) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSingUp = () => {
+    if (password == confirmPassword) {
+      const user = new Parse.User();
+      user.set('username', username);
+      user.set('email', email);
+      user.set('isAdmin', false);
+      user.set('password', password);
+
+      user.signUp().then(async (user) => {
+        await AsyncStorage.setItem('user', user.attributes.toString());
+        props.navigation.navigate('App');
+        console.log('User signed up', user);
+      }).catch(error => {
+        console.log('Error while signing up user', error);
+        Alert.alert('Error', error.message);
+      });
+    } else {
+      Alert.alert('Aviso', 'As senha estão diferentes');
+    }
+  }
 
   return (
     <View>
@@ -20,21 +47,29 @@ const SignUp = () => {
 
         <View style={styles.emailContainer}>
           <TextInput style={styles.textInput} placeholder="Email"
+            value={email}
+            onChangeText={value => setEmail(value)}
             keyboardType="email-address" />
         </View>
         <View style={styles.emailContainer}>
           <TextInput style={styles.textInput} placeholder="Usuário"
+            value={username}
+            onChangeText={value => setUsername(value)}
             keyboardType="name-phone-pad" />
         </View>
         <View style={styles.emailContainer}>
           <TextInput style={styles.textInput} placeholder="Senha"
+            value={password}
+            onChangeText={value => setPassword(value)}
             secureTextEntry={true} />
         </View>
         <View style={styles.confirmPasswordContainer}>
           <TextInput style={styles.textInput} placeholder="Confirmar Senha"
+            value={confirmPassword}
+            onChangeText={value => setConfirmPassword(value)}
             secureTextEntry={true} />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => handleSingUp()} style={styles.btn}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Cadastrar</Text>
           </View>
@@ -44,9 +79,13 @@ const SignUp = () => {
   );
 }
 
-export default SignUp;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
+  btn: {
+    width: 325,
+    height: 50,
+  },
   container: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -90,7 +129,7 @@ const styles = StyleSheet.create({
     width: 330,
   },
   logoContainer: {
-    height: 170,
+    height: 100,
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
