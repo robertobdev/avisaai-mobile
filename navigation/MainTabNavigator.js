@@ -8,6 +8,7 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import NewsDetailScreen from '../screens/News/NewsDetailScreen';
 import MapsScreen from '../screens/MapsScreen';
+import NotificationScreen from '../screens/NotificationScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -55,7 +56,8 @@ MapsStack.navigationOptions = {
 MapsStack.path = '';
 const NotificationStack = createStackNavigator(
   {
-    Notification: LinksScreen,
+    Notification: NotificationScreen,
+    Detail: NewsDetailScreen
   },
   config
 );
