@@ -34,8 +34,6 @@ const imageWidth = dimensions.width;
 const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 20,
-    // paddingLeft: 16,
-    // paddingRight: 16,
   },
   thumb: {
     width: imageWidth,
