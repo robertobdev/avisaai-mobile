@@ -38,7 +38,7 @@ export default NotificationCard;
 const styles = StyleSheet.create({
   container: {
     margin: 16,
-    height: 260,
+    height: 180,
     borderRadius: 10,
     borderWidth: 1,
     padding: 10,
