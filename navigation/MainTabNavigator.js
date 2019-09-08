@@ -77,6 +77,7 @@ const SettingsStack = createStackNavigator(
   {
     Settings: SettingsScreen,
     About: AboutScreen,
+    SendMessage: SendMessageScreen,
     ChangePassword: ChangePasswordScreen,
   },
   config

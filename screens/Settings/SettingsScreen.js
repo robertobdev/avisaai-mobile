@@ -51,6 +51,14 @@ const SettingsScreen = ({ navigation }) => {
           <Icon name="arrow-forward" />
         </Right>
       </ListItem>
+      <ListItem onPress={() => goTo('SendMessage')}>
+        <Left>
+          <Text>Enviar mensagem</Text>
+        </Left>
+        <Right>
+          <Icon name="arrow-forward" />
+        </Right>
+      </ListItem>
       <ListItem onPress={() => leave()}>
         <Left>
           <Text>Sair</Text>
