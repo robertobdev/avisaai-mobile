@@ -35,14 +35,6 @@ const SettingsScreen = ({ navigation }) => {
       <Text style={styles.number}>version 1.0 </Text>
     </View>
     <List>
-      <ListItem onPress={() => goTo('ChangePassword')}>
-        <Left>
-          <Text>Alterar Senha</Text>
-        </Left>
-        <Right>
-          <Icon name="arrow-forward" />
-        </Right>
-      </ListItem>
       <ListItem onPress={() => goTo('About')}>
         <Left>
           <Text>Sobre</Text>
