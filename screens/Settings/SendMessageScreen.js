@@ -4,21 +4,60 @@ import {
   StyleSheet,
   TextInput
 } from 'react-native';
-import { Textarea } from "native-base";
+import { Textarea, Button, Text, Toast } from "native-base";
+import Parse from 'parse/react-native';
+const SendMessageScreen = ({ navigation }) => {
 
-const SendMessageScreen = () => {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
 
-  return (<View>
-    <View style={styles.emailContainer}>
+
+  const handlePress = () => {
+    const messages = Parse.Object.extend('messages');
+    const myNewObject = new messages();
+
+    myNewObject.set('title', title);
+    myNewObject.set('message', message);    
+    myNewObject.relation("user_relation").add(Parse.User.current());
+    // myNewObject.set('user_relation', Parse.User.current());
+    myNewObject.set('is_read', false);
+    myNewObject.save().then(
+      (result) => {
+        Toast.show({
+          text: 'Mensagem Enviada',
+          buttonText: 'Okay',
+          duration: 1000,
+          onClose: () => {
+            navigation.pop();
+          }
+        });
+        console.log('messages created', result);
+      },
+      (error) => {
+        Toast.show({
+          text: 'Não foi possivel enviar essa mensagem!',
+          buttonText: 'Okay',
+          duration: 2000
+        });
+        console.log('Error while creating messages: ', error);
+      }
+    );
+  }
+
+  return (<View class={styles.container}>
+    <View style={styles.title}>
       <TextInput style={styles.textInput} placeholder="Título"
         value={title}
         onChangeText={value => setTitle(value)} />
     </View>
-    <View style={styles.emailContainer}>
-      <Textarea rowSpan={20} bordered placeholder="Mensagem" value={message}
+    <View >
+      <Textarea style={styles.message} rowSpan={11} bordered placeholder="Mensagem" value={message}
         onChangeText={value => setMessage(value)} />
+    </View>
+    <View style={styles.btn}>
+      <Button block onPress={() => handlePress()}>
+        <Text>Salvar</Text>
+      </Button>
     </View>
   </View>);
 }
@@ -30,39 +69,45 @@ SendMessageScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  emailContainer: {
-    width: 325,
-    borderColor: '#CFD0D1',
-    borderWidth: 1,
-    height: 50,
-    padding: 10,
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    borderBottomWidth: 0,
-    backgroundColor: '#F5F6F7',
-    marginTop: 1,
+  container: {
+    flex: 1
   },
-  confirmPasswordContainer: {
-    width: 325,
-    borderColor: '#CFD0D1',
+  btn: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    textAlign: 'center',
+  },
+  message: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: '#F5F6F7',
     borderWidth: 1,
-    height: 50,
-    padding: 10,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
     borderBottomLeftRadius: 4,
     borderBottomRightRadius: 4,
+    padding: 10,
+  },
+  title: {
+    padding: 10,
+    height: 50,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
     backgroundColor: '#F5F6F7',
-    marginTop: 1,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
   },
   textInput: {
     color: '#989899',
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
     fontSize: 14,
   },
 });
