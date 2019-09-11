@@ -4,7 +4,7 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import  Parse from 'parse/react-native';
+import Parse from 'parse/react-native';
 
 Parse.setAsyncStorage(AsyncStorage);
 Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
@@ -14,6 +14,7 @@ Parse.initialize(
 );
 
 import AppNavigator from './navigation/AppNavigator';
+import { Root } from "native-base";
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -28,10 +29,10 @@ export default function App(props) {
     );
   } else {
     return (
-      <View style={styles.container}>
+      <Root style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <AppNavigator />
-      </View>
+      </Root>
     );
   }
 }
