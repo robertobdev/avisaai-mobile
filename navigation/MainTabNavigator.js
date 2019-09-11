@@ -4,13 +4,12 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import NewsScreen from '../screens/News/NewsScreen';
-import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/Settings/SettingsScreen';
 import AboutScreen from '../screens/Settings/AboutScreen';
-import ChangePasswordScreen from '../screens/Settings/ChangePasswordScreen';
 import NewsDetailScreen from '../screens/News/NewsDetailScreen';
 import MapsScreen from '../screens/MapsScreen';
 import NotificationScreen from '../screens/NotificationScreen';
+import SendMessageScreen from '../screens/Settings/SendMessageScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -78,7 +77,6 @@ const SettingsStack = createStackNavigator(
     Settings: SettingsScreen,
     About: AboutScreen,
     SendMessage: SendMessageScreen,
-    ChangePassword: ChangePasswordScreen,
   },
   config
 );
